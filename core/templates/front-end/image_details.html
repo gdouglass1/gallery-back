@@ -1,0 +1,136 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="icon" href="images/favicon.png">
+      <title>Gallery</title>
+      <!-- CSS FILES START -->
+      <link href="{%static 'front-end/css/custom.css' %}" rel="stylesheet">
+      <link href="{%static 'front-end/css/color.css' %}" rel="stylesheet">
+      <link href="{%static 'front-end/css/responsive.css' %}" rel="stylesheet">
+      <link href="{%static 'front-end/css/owl.carousel.min.css' %}" rel="stylesheet">
+      <link href="{%static 'front-end/css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{%static 'front-end/css/prettyPhoto.css' %}" rel="stylesheet">
+      <link href="{%static 'front-end/css/all.min.css' %}" rel="stylesheet">
+      <!-- CSS FILES End -->
+   </head>
+   <body>
+      <div class="wrapper">
+         <!--Header End-->
+         <!--Inner Header Start-->
+         <section class="wf100 p100 inner-header">
+            <div class="container">
+               <h1>Gallery</h1>
+               <ul>
+                  <li><a href="#"> Details About This Image </a></li>
+               </ul>
+            </div>
+         </section>
+         <!--Inner Header End-->
+
+        <section id="add_photo_section">
+        <div class="container">
+           <div class="row text-center">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                        <!-- add photo section form -->
+                  <div id="add_photo" class="">
+                     <h3 class="">Image Details</h3>
+                  </div>
+              </div>
+              <div class="col-md-4"></div>
+           </div>
+        </div>
+        </section>
+
+         <!--Contact Start-->
+         <div class="gallery wf100 p80">
+            <div class="container">
+               <div class="row">
+
+                  <!--Image Box Start-->
+                  <div class="col-md-4 col-sm-1">
+                  </div>
+
+                  <div class="col-md-4 col-sm-10">
+                      <div class="row">
+<!--                              <img src="{%static 'front-end/images/gallery/gmasnry4.jpg' %}" width="100%" height="300px" alt="">-->
+                              <img src="{{img.image.url}}" width="100%" height="300px" alt="">
+                      </div>
+                  </div>
+
+                  <div class="col-md-2 col-sm-1">
+                  </div>
+
+                  <!--Image Box End-->
+
+               </div>
+
+               <br>
+
+               <div class="row">
+                   <div class="col-md-4"></div>
+                   <div class="col-md-4">
+
+                       <div class="row">
+                           <button type="button" class="btn" onclick="window.history.back();"> Back</button>
+                       </div>
+
+                       <div class="row">
+                            <div class="comment_title">
+                                <h3>Comments:</h3>
+                            </div>
+                       </div>
+
+                       {% for comment in comments %}
+                       {% if img.pk == comment.img.pk %}
+                    <div class="row">
+                        <div class="col-md-12" style="position: relative;left: 0;">
+                            <div class="comment_date">
+                                <span style="font-size: 12px;">{{comment.date}}</span>
+                            </div>
+                            <div class="comment_txt">
+                                <h6>{{comment.comment}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                       {% endif %}
+                       {% endfor %}
+
+                       <div class="row">
+                        <form action="{% url 'galleryImgDetails' pk=pk %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <textarea name="comment" id="" cols="40" rows="2" placeholder="Comment Here"></textarea>
+                            <input type="submit" style="background-color: white;outline:none; width:120px;border:1px solid gray;cursor:pointer;">
+                        </form>
+                       </div>
+                   </div>
+                   <div class="col-md-4"></div>
+               </div>
+
+            </div>
+         </div>
+         <!--Contact End-->
+         <!--Footer Start-->
+         <footer class="footer">
+            <div class="footer-copyr wf100">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-4 col-sm-4"> Gallery </div>
+                     <div class="col-md-8 col-sm-8">
+                        <p><a target="_blank" href="#">Gallery</a></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </footer>
+         <!--Footer End-->
+      </div>
+
+   </body>
+</html>
